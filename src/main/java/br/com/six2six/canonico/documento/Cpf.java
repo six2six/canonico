@@ -10,7 +10,10 @@ public class Cpf implements Documento {
 	private String value;
 	
 	public Cpf(String cpf, boolean leniente) {
-		this.value = StringUtils.leftPad(cpf, 11, "0");
+		if (cpf != null) {
+			cpf = cpf.replaceAll("(-|\\.)", "");
+			this.value = StringUtils.leftPad(cpf, 11, "0");
+		}		
 		if (!isValido() && !leniente) {
 			throw new DocumentoInvalido("Cpf inválido: " + this.value);
 		}

@@ -14,4 +14,20 @@ public class CpfTest {
 		Assert.assertEquals("Valor inválido", "13911708300", cpf.getValue());
 	}
 	
+	@Test
+	public void completarTamanhoCpfComZeros() {
+		Cpf cpf = new Cpf("6650167860");
+		Assert.assertTrue("Cpf inválido", cpf.isValido());
+		Assert.assertEquals("Formatação inválida", "066.501.678-60", cpf.getDisplayValue());
+		Assert.assertEquals("Valor inválido", "06650167860", cpf.getValue());
+	}
+	
+	@Test
+	public void removerCaracteresFormatacao() {
+		Cpf cpf = new Cpf("431.327.178-35");
+		Assert.assertTrue("Cpf inválido", cpf.isValido());
+		Assert.assertEquals("Formatação inválida", "431.327.178-35", cpf.getDisplayValue());
+		Assert.assertEquals("Valor inválido", "43132717835", cpf.getValue());
+	}
+	
 }
