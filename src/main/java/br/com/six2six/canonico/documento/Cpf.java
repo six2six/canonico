@@ -35,7 +35,27 @@ public class Cpf implements Documento {
 
 	@Override
 	public boolean isValido() {
-		return true;
+		if (this.value == null) {
+			return false;
+		}
+		String cpfCalculado = calcularDigitoVerificador(this.value.substring(0, 9));
+		return this.value.equals(cpfCalculado);
+	}
+	
+	private String calcularDigitoVerificador(String parteCpf) {
+		int multiplicador = parteCpf.length() + 1;
+		int acumulador = 0;
+		char[] digitos = parteCpf.toCharArray();
+		for (int i = 0; i < digitos.length; i++) {
+			acumulador += new Integer(String.valueOf(digitos[i])) * multiplicador;
+			multiplicador--;
+		}
+		int digito = 11 - (acumulador % 11);
+		if (digito >= 10) {
+			digito = 0;
+		}
+		parteCpf += digito;
+		return parteCpf.length() < 11 ? calcularDigitoVerificador(parteCpf) : parteCpf;
 	}
 
 }
