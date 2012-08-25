@@ -35,11 +35,33 @@ public class Cnpj implements Documento {
 
 	@Override
 	public boolean isValido() {
-		return true;
+		return this.value.endsWith(calcularDigitoVerificadores(this.value.substring(0, 12)));
 	}
 	
-	private String calcularDigitoVerificador(String parteCnpj) {
-		return null;
+	private String calcularDigitoVerificadores(String parteCnpj) {
+		String digitos = "";
+		int[] multiplicadores = new int[] {6,5,4,3,2,9,8,7,6,5,4,3,2};
+		if (permiteCalcularDigito(parteCnpj)) {
+			int indexMultiplicador = parteCnpj.length() == 12 ? 1 : 0;
+			int total = 0;
+			for (int i=0; i < parteCnpj.length(); i++) {
+				total += new Integer(String.valueOf(parteCnpj.charAt(i))) * multiplicadores[indexMultiplicador];
+				indexMultiplicador++;
+			}
+			
+			int digito = 11 - (total % 11);
+			if (digito >= 10) {
+				digito = 0;
+			}
+			digitos = digitos.concat(String.valueOf(digito));
+			parteCnpj += digitos;
+			digitos = digitos.concat(String.valueOf(calcularDigitoVerificadores(parteCnpj)));
+		}
+		return digitos;
+	}
+	
+	private boolean permiteCalcularDigito(String parteCnpj) {
+		return parteCnpj != null && parteCnpj.length() >= 12 && parteCnpj.length() < 14;
 	}
 
 }

@@ -11,7 +11,7 @@ public class Cpf implements Documento {
 	
 	public Cpf(String cpf, boolean leniente) {
 		if (cpf != null) {
-			cpf = cpf.replaceAll("(-|\\.)", "");
+			cpf = cpf.replaceAll("(-|\\.|/)", "");
 			this.value = StringUtils.leftPad(cpf, 11, "0");
 		}		
 		if (!isValido() && !leniente) {

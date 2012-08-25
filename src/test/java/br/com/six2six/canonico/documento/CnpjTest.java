@@ -4,6 +4,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import br.com.six2six.canonico.documento.Cnpj;
+
 public class CnpjTest {
 
 	@Test
@@ -30,8 +32,6 @@ public class CnpjTest {
 		Assert.assertEquals("Valor inválido", "09786868000133", cnpj.getValue());
 	}
 
-	/*
-	
 	@Test(expected=DocumentoInvalido.class)
 	public void cnpjInvalidoNaoLenienteDeveGerarErro() {
 		new Cpf("09.786.868/0001-34");
@@ -42,8 +42,6 @@ public class CnpjTest {
 		Cnpj cnpj = new Cnpj("09.786.868/0001-34", true);
 		Assert.assertFalse("Cnpj inválido", cnpj.isValido());
 		Assert.assertEquals("Formatação inválida", "09.786.868/0001-34", cnpj.getDisplayValue());
-		Assert.assertEquals("Valor inválido", "09786868000133", cnpj.getValue());
+		Assert.assertEquals("Valor inválido", "09786868000134", cnpj.getValue());
 	}
-	
-	*/
 }
