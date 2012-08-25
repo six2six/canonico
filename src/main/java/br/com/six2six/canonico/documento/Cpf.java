@@ -2,6 +2,8 @@ package br.com.six2six.canonico.documento;
 
 import org.apache.commons.lang.StringUtils;
 
+import br.com.six2six.canonico.localizacao.UF;
+
 
 public class Cpf implements Documento {
 	
@@ -42,6 +44,11 @@ public class Cpf implements Documento {
 		return this.value.equals(cpfCalculado);
 	}
 	
+	@Override
+	public OrgaoEmissor getOrgaoEmissor() {
+		return OrgaoEmissor.RECEITA_FEDERAL_BRASIL;
+	}
+	
 	private String calcularDigitoVerificador(String parteCpf) {
 		int multiplicador = parteCpf.length() + 1;
 		int acumulador = 0;
@@ -56,6 +63,11 @@ public class Cpf implements Documento {
 		}
 		parteCpf += digito;
 		return parteCpf.length() < 11 ? calcularDigitoVerificador(parteCpf) : parteCpf;
+	}
+
+	@Override
+	public UF getUf() {
+		return null;
 	}
 
 }

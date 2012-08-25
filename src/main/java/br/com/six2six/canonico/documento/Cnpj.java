@@ -2,6 +2,8 @@ package br.com.six2six.canonico.documento;
 
 import org.apache.commons.lang.StringUtils;
 
+import br.com.six2six.canonico.localizacao.UF;
+
 
 public class Cnpj implements Documento {
 	
@@ -35,7 +37,12 @@ public class Cnpj implements Documento {
 
 	@Override
 	public boolean isValido() {
-		return this.value.endsWith(calcularDigitoVerificadores(this.value.substring(0, 12)));
+		return this.value != null && this.value.endsWith(calcularDigitoVerificadores(this.value.substring(0, 12)));
+	}
+	
+	@Override
+	public OrgaoEmissor getOrgaoEmissor() {
+		return OrgaoEmissor.RECEITA_FEDERAL_BRASIL;
 	}
 	
 	private String calcularDigitoVerificadores(String parteCnpj) {
@@ -62,6 +69,11 @@ public class Cnpj implements Documento {
 	
 	private boolean permiteCalcularDigito(String parteCnpj) {
 		return parteCnpj != null && parteCnpj.length() >= 12 && parteCnpj.length() < 14;
+	}
+
+	@Override
+	public UF getUf() {
+		return null;
 	}
 
 }
